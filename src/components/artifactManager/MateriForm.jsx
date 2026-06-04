@@ -2,63 +2,63 @@ import React, { useState, useEffect } from "react";
 import SimpleMDE from "react-simplemde-editor";
 import Snackbar from "../Snackbar";
 
-// const MDE_OPTIONS = {
-//     spellChecker: false,
-//     autosave: { enabled: false },
-//     placeholder: "Tulis isi materi di sini...",
-//     toolbar: [
-//         "bold", "italic", "|", "unordered-list", "ordered-list", "|",
-//         "image", "|",
-//         {
-//             name: "latex",
-//             action: (editor) => {
-//                 const cm = editor.codemirror;
-//                 cm.replaceSelection(`$${cm.getSelection()}$`);
-//             },
-//             className: "fa fa-code",
-//             title: "Menyisipkan LaTeX",
-//         },
-//         "|",
-//         {
-//             name: "align-left",
-//             action: (editor) => {
-//                 const cm = editor.codemirror;
-//                 cm.replaceSelection(`[left]${cm.getSelection()}[/left]`);
-//             },
-//             className: "fa fa-align-left",
-//             title: "Align Left",
-//         },
-//         {
-//             name: "align-center",
-//             action: (editor) => {
-//                 const cm = editor.codemirror;
-//                 cm.replaceSelection(`[center]${cm.getSelection()}[/center]`);
-//             },
-//             className: "fa fa-align-center",
-//             title: "Align Center",
-//         },
-//         {
-//             name: "align-right",
-//             action: (editor) => {
-//                 const cm = editor.codemirror;
-//                 cm.replaceSelection(`[right]${cm.getSelection()}[/right]`);
-//             },
-//             className: "fa fa-align-right",
-//             title: "Align Right",
-//         },
-//         {
-//             name: "align-justify",
-//             action: (editor) => {
-//                 const cm = editor.codemirror;
-//                 cm.replaceSelection(`[justify]${cm.getSelection()}[/justify]`);
-//             },
-//             className: "fa fa-align-justify",
-//             title: "Align Justify",
-//         },
-//         "|",
-//         "preview", "side-by-side", "fullscreen",
-//     ],
-// };
+const MDE_OPTIONS = {
+    spellChecker: false,
+    autosave: { enabled: false },
+    placeholder: "Tulis isi materi di sini...",
+    toolbar: [
+        "bold", "italic", "|", "unordered-list", "ordered-list", "|",
+        "image", "|",
+        {
+            name: "latex",
+            action: (editor) => {
+                const cm = editor.codemirror;
+                cm.replaceSelection(`$${cm.getSelection()}$`);
+            },
+            className: "fa fa-code",
+            title: "Menyisipkan LaTeX",
+        },
+        "|",
+        {
+            name: "align-left",
+            action: (editor) => {
+                const cm = editor.codemirror;
+                cm.replaceSelection(`[left]${cm.getSelection()}[/left]`);
+            },
+            className: "fa fa-align-left",
+            title: "Align Left",
+        },
+        {
+            name: "align-center",
+            action: (editor) => {
+                const cm = editor.codemirror;
+                cm.replaceSelection(`[center]${cm.getSelection()}[/center]`);
+            },
+            className: "fa fa-align-center",
+            title: "Align Center",
+        },
+        {
+            name: "align-right",
+            action: (editor) => {
+                const cm = editor.codemirror;
+                cm.replaceSelection(`[right]${cm.getSelection()}[/right]`);
+            },
+            className: "fa fa-align-right",
+            title: "Align Right",
+        },
+        {
+            name: "align-justify",
+            action: (editor) => {
+                const cm = editor.codemirror;
+                cm.replaceSelection(`[justify]${cm.getSelection()}[/justify]`);
+            },
+            className: "fa fa-align-justify",
+            title: "Align Justify",
+        },
+        "|",
+        "preview", "side-by-side", "fullscreen",
+    ],
+};
 
 export default function MateriForm({ formData, handlers, isLoading, statusMessage, uniqueMateriSuggestions }) {
     const { materiType, materi, title, content, category, editingId } = formData;

@@ -218,7 +218,7 @@ export default function UserDetailModal({
                                             </label>
                                         ) : (
                                             <p style={{ margin: 0, fontWeight: 700, fontSize: 14, color: userDetail.tutorial_completed ? "#166534" : "#991b1b" }}>
-                                                {userDetail.tutorial_completed ? "Sudah Melewati Tutorial" : "Belum Tutorial"}
+                                                {userDetail.tutorial_completed ? "Sudah Mencoba Mode Eksplorasi Tutorial" : "Belum Mencoba Mode Eksplorasi Tutorial"}
                                             </p>
                                         )}
                                     </div>

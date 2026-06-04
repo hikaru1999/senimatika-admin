@@ -7,7 +7,7 @@ export default function EditorSidebar({
   levelDescription, setLevelDescription,
   levelPassword, setLevelPassword,
   levelType, setLevelType,
-  isLevelActive, setIsLevelActive,
+  isActive, setIsActive,
   visibilityMode, setVisibilityMode,
   selectedGround, setSelectedGround,
   selectedGroundVariant, setSelectedGroundVariant,
@@ -96,7 +96,7 @@ export default function EditorSidebar({
           </select>
 
           <label style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 10, cursor: 'pointer' }}>
-            <input type="checkbox" checked={isLevelActive} onChange={e => setIsLevelActive(e.target.checked)} />
+            <input type="checkbox" checked={!!isActive} onChange={e => setIsActive(e.target.checked)} />
             Level Aktif
           </label>
 

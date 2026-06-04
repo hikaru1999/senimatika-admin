@@ -174,7 +174,7 @@ function UserManager() {
                         boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
                     }}
                 >
-                    {isLoading ? "Memuat..." : "🔄 Segarkan Data"}
+                    {isLoading ? "Memuat..." : "🔄 Refresh"}
                 </button>
             </div>
 
@@ -184,7 +184,7 @@ function UserManager() {
                     <div style={statsValueStyle}>{stats.total}</div>
                 </div>
                 <div style={statsCardStyle("#fff7ed", "#ea580c")}>
-                    <div style={statsLabelStyle}>Koin Beredar</div>
+                    <div style={statsLabelStyle}>Total Sirkulasi Koin</div>
                     <div style={statsValueStyle}>🪙 {stats.totalCoins}</div>
                 </div>
                 <div style={statsCardStyle("#f0fdf4", "#16a34a")}>

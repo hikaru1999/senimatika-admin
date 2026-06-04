@@ -42,10 +42,10 @@ export default function MapGallery({ levels, isLoading, loadingMapId, onAddNew, 
               <span style={{ fontSize: 10, background: lvl.levelType === "TUTORIAL" ? "#f59e0b" : "#64748b", color: "white", padding: "2px 8px", borderRadius: 20, fontWeight: 800 }}>
                 {lvl.levelType || "NORMAL"}
               </span>
-              {lvl.isActive !== false && (
+              {lvl.isActive === true && (
                 <span style={{ fontSize: 10, background: "#10b981", color: "white", padding: "2px 8px", borderRadius: 20, fontWeight: 800 }}>ACTIVE</span>
               )}
-              {lvl.isActive === false && (
+              {!lvl.isActive && (
                 <span style={{ fontSize: 10, background: "#ef4444", color: "white", padding: "2px 8px", borderRadius: 20, fontWeight: 800 }}>DISABLED</span>
               )}
             </div>

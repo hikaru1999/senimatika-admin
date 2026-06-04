@@ -1,4 +1,4 @@
-# SenimatikaAdmin (Map Editor & Admin Panel) -- EXPERIMENTAL/TESTING-PURPOSE
+# Senimatika Map Editor & Admin Panel
 
 SenimatikaAdmin merupakan platform manajemen konten dalam ekosistem Senimatika. Platform ini dibangun menggunakan **React**, **Vite**, dan **Firebase** yang bertujuan untuk mengelola (menambahkan, mengedit, dan menghapus) peta eksplorasi, bank soal, kuis, dan data pengguna Senimatika secara real-time.
 

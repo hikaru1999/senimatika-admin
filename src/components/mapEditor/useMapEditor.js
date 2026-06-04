@@ -18,7 +18,7 @@ export default function useMapEditor() {
   const [levelDescription, setLevelDescription] = useState("");
   const [levelPassword, setLevelPassword] = useState("");
   const [levelType, setLevelType] = useState("NORMAL");
-  const [isLevelActive, setIsLevelActive] = useState(true);
+  const [isActive, setIsActive] = useState(true);
   const [visibilityMode, setVisibilityMode] = useState("NORMAL");
   const [activeTool, setActiveTool] = useState("NONE");
   const [brushMode, setBrushMode] = useState("GROUND");
@@ -68,6 +68,7 @@ export default function useMapEditor() {
     setLevelName(data.name || id);
     setLevelDescription(data.description || "");
     setLevelType(data.levelType || "NORMAL");
+    setIsActive(data.isActive === true);
     setVisibilityMode(data.visibility?.fogNightCombined ? "FOG_NIGHT" : data.visibility?.nightMode ? "NIGHT" : data.visibility?.fogOfWar ? "FOG" : "NORMAL");
     
     const newMap = Array.from({ length: data.height }, (_, y) =>
@@ -100,7 +101,7 @@ export default function useMapEditor() {
 
     const finalId = selectedLevelId.startsWith("level_") ? levelName.toLowerCase().replace(/\s+/g, "_") : selectedLevelId;
     await setDoc(doc(db, "game_maps", finalId), {
-      name: levelName, description: levelDescription, levelType, isActive: isLevelActive,
+      name: levelName, description: levelDescription, levelType, isActive: isActive,
       width: maxX - minX + 1, height: maxY - minY + 1, tiles: croppedTiles,
       playerStart: { x: playerPos.x - minX, y: playerPos.y - minY },
       bossStart: bossPos ? { x: bossPos.x - minX, y: bossPos.y - minY } : null,
@@ -174,7 +175,7 @@ export default function useMapEditor() {
     setLevelDescription("");
     setLevelPassword("");
     setLevelType("NORMAL");
-    setIsLevelActive(true);
+    setIsActive(true);
     setVisibilityMode("NORMAL");
     setActiveTool("BRUSH");
     setIsSizeModalOpen(false);
@@ -221,7 +222,7 @@ export default function useMapEditor() {
     levelName, setLevelName,
     levelDescription, setLevelDescription,
     levelType, setLevelType,
-    isLevelActive, setIsLevelActive,
+    isActive, setIsActive,
     visibilityMode, setVisibilityMode,
     quizzes, uniqueQuests, artifactContents,
     selectedQuizId, setSelectedQuizId,
