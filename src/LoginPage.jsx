@@ -7,23 +7,36 @@ function LoginPage({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setIsLoading(true);
 
-    if (username === import.meta.env.VITE_ADMIN_USERNAME && password === import.meta.env.VITE_ADMIN_PASSWORD) {
+    const envUsername = import.meta.env.VITE_ADMIN_USERNAME;
+    const envPassword = import.meta.env.VITE_ADMIN_PASSWORD;
+    const adminEmail = import.meta.env.VITE_FIREBASE_ADMIN_EMAIL;
+
+    // Cek apakah variabel .env terbaca saat runtime
+    if (!envUsername || !envPassword || !adminEmail) {
+      setError("Konfigurasi (.env) tidak terbaca. Pastikan sudah build ulang setelah mengisi .env.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (username === envUsername && password === envPassword) {
       try {
-        const adminEmail = import.meta.env.VITE_FIREBASE_ADMIN_EMAIL;
         await signInWithEmailAndPassword(auth, adminEmail, password);
         onLogin();
       } catch (err) {
-        console.error(err);
-        setError("Gagal sinkronisasi dengan Firebase. Pastikan akun admin sudah dibuat.");
+        setError(`Firebase Auth Error (${err.code}): Pastikan email '${adminEmail}' sudah terdaftar di Firebase Console.`);
       }
+      setIsLoading(false);
     } else {
       setError("Username atau password salah!");
+      setIsLoading(false);
     }
   };
 
@@ -36,6 +49,23 @@ function LoginPage({ onLogin }) {
       background: "#f1f5f9",
       fontFamily: "Inter, system-ui, sans-serif"
     }}>
+      <style>
+        {`
+          @keyframes spin-login {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          .login-spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid #ffffff;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            animation: spin-login 0.8s linear infinite;
+            display: inline-block;
+          }
+        `}
+      </style>
       <form onSubmit={handleSubmit} style={{
         background: "white",
         padding: "40px",
@@ -72,7 +102,7 @@ function LoginPage({ onLogin }) {
           />
         </div>
         
-        <button type="submit" style={{
+        <button type="submit" disabled={isLoading} style={{
           width: "100%",
           padding: "14px",
           background: "#2563eb",
@@ -80,10 +110,15 @@ function LoginPage({ onLogin }) {
           border: "none",
           borderRadius: "12px",
           fontWeight: "700",
-          cursor: "pointer",
-          fontSize: "16px"
+          cursor: isLoading ? "not-allowed" : "pointer",
+          fontSize: "16px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "10px",
+          opacity: isLoading ? 0.8 : 1
         }}>
-          Login
+          {isLoading ? <><div className="login-spinner"></div> Memproses...</> : "Login"}
         </button>
 
         <button 

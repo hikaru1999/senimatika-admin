@@ -53,6 +53,10 @@ function App() {
         onAddDimension={editor.addDimension}
         activeTool={editor.activeTool}
         setActiveTool={editor.setActiveTool}
+        quizzes={editor.quizzes}
+        uniqueQuests={editor.uniqueQuests}
+        artifactContents={editor.artifactContents}
+        isActive={editor.isActive}
       />
       <NewMapModal 
         isOpen={editor.isSizeModalOpen}

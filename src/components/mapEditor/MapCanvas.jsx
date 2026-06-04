@@ -9,7 +9,11 @@ export default function MapCanvas({
   isMouseDown, 
   onAddDimension,
   activeTool,
-  setActiveTool
+  setActiveTool,
+  isActive,
+  quizzes = [], 
+  uniqueQuests = [],
+  artifactContents = []
 }) {
   return (
     <div style={{ flex: 1, padding: "60px", overflow: "auto", background: "#f1f5f9" }}>
@@ -131,6 +135,94 @@ export default function MapCanvas({
               {tile.groundVariant && <img src={`/assets/${tile.groundVariant}.png`} style={imgFullStyle} />}
               {tile.objectVariant && <img src={`/assets/${tile.objectVariant}.png`} style={{ ...imgFullStyle, zIndex: 2 }} />}
               {playerPos.x === x && playerPos.y === y && <img src="/assets/ic_player.png" style={playerImgStyle} />}
+
+              {/* Quiz Bubble for Bosses */}
+              {tile.object === "BOSS" && tile.quizId && (
+                (() => {
+                  // Mencari kuis boss yang sesuai berdasarkan ID
+                  const bossQuiz = quizzes.find(q => q.id === tile.quizId);
+                  if (bossQuiz) {
+                    return (
+                      <div style={{
+                        position: 'absolute',
+                        bottom: '100%', // Posisikan di atas tile
+                        left: '50%',
+                        transform: 'translateX(-50%) translateY(-5px)', // Sesuaikan posisi
+                        backgroundColor: '#7c3aed', // Warna sesuai Boss Battle
+                        color: 'white',
+                        padding: '4px 8px',
+                        borderRadius: '8px',
+                        fontSize: '10px',
+                        fontWeight: 'bold',
+                        whiteSpace: 'nowrap', // Pastikan teks tidak pecah baris
+                        zIndex: 100,
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                      }}>
+                        {bossQuiz.title}
+                      </div>
+                    );
+                  }
+                  return null;
+                })()
+              )}
+
+              {/* Quiz Bubble for Station */}
+              {tile.object === "STATION" && tile.quizId && (
+                (() => {
+                  const quest = uniqueQuests.find(q => q.id === tile.quizId);
+                  if (quest) {
+                    return (
+                      <div style={{
+                        position: 'absolute',
+                        bottom: '100%',
+                        left: '50%',
+                        transform: 'translateX(-50%) translateY(-5px)',
+                        backgroundColor: '#059669',
+                        color: 'white',
+                        padding: '4px 8px',
+                        borderRadius: '8px',
+                        fontSize: '10px',
+                        fontWeight: 'bold',
+                        whiteSpace: 'nowrap',
+                        zIndex: 100,
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                      }}>
+                        {quest.title}
+                      </div>
+                    );
+                  }
+                  return null;
+                })()
+              )}
+
+              {/* Info Bubble for Artifact */}
+              {tile.object === "ARTIFACT" && tile.contentId && (
+                (() => {
+                  const content = artifactContents.find(c => c.id === tile.contentId);
+                  if (content) {
+                    return (
+                      <div style={{
+                        position: 'absolute',
+                        bottom: '100%',
+                        left: '50%',
+                        transform: 'translateX(-50%) translateY(-5px)',
+                        backgroundColor: '#0284c7',
+                        color: 'white',
+                        padding: '4px 8px',
+                        borderRadius: '8px',
+                        fontSize: '10px',
+                        fontWeight: 'bold',
+                        whiteSpace: 'nowrap',
+                        zIndex: 100,
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                      }}>
+                        {content.title}
+                      </div>
+                    );
+                  }
+                  return null;
+                })()
+              )}
             </div>
           )))}
         </div>
